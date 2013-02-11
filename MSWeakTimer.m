@@ -79,11 +79,13 @@
     __weak typeof(self) weakSelf = self;
 
     dispatch_source_set_event_handler(self.timer, ^{
-        [weakSelf timerFired];
+        __strong typeof(self) strongSelf = weakSelf;
+        
+        [strongSelf timerFired];
 
-        if (!weakSelf.repeats)
+        if (!strongSelf.repeats)
         {
-            [weakSelf invalidate];
+            [strongSelf invalidate];
         }
     });
 
