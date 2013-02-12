@@ -28,6 +28,14 @@
                                         repeats:(BOOL)repeats
                                   dispatchQueue:(dispatch_queue_t)dispatchQueue;
 
++ (MSWeakTimer *)scheduledTimerWithTimeInterval:(NSTimeInterval)timeInterval
+                                       target:(id)target
+                                       selector:(SEL)selector
+                                       userInfo:(id)userInfo
+                                        repeats:(BOOL)repeats
+                                  dispatchQueue:(dispatch_queue_t)dispatchQueue;
+
+
 /**
  * @discussion causes the timer to be fired synchronously with this call.
  * @note this fires the timer on the caller queue, not on the provided dispatch_queue.
