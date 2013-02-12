@@ -54,7 +54,10 @@
     weakTimer.userInfo = userInfo;
     weakTimer.repeats = repeats;
 
-    dispatch_retain(dispatchQueue);
+    #if !MSTreatQueuesAsObjects
+        dispatch_retain(dispatchQueue);
+    #endif
+
     weakTimer.dispatchQueue = dispatchQueue;
 
     [weakTimer schedule];
