@@ -31,8 +31,8 @@
 @interface MSWeakTimer ()
 
 @property (nonatomic, assign) NSTimeInterval timeInterval;
-@property (nonatomic, assign) id<MSWeakTimerDelegate> delegate;
-@property (nonatomic, retain) id userInfo;
+@property (nonatomic, weak) id<MSWeakTimerDelegate> delegate;
+@property (nonatomic, strong) id userInfo;
 @property (nonatomic, assign) BOOL repeats;
 
 @property (nonatomic, ms_gcd_property_qualifier) dispatch_queue_t dispatchQueue;
