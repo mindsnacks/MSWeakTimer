@@ -31,7 +31,8 @@
 @interface MSWeakTimer ()
 
 @property (nonatomic, assign) NSTimeInterval timeInterval;
-@property (nonatomic, weak) id<MSWeakTimerDelegate> delegate;
+@property (nonatomic, weak) id target;
+@property (nonatomic, assign) SEL selector;
 @property (nonatomic, strong) id userInfo;
 @property (nonatomic, assign) BOOL repeats;
 
@@ -51,10 +52,21 @@
                                         repeats:(BOOL)repeats
                                   dispatchQueue:(dispatch_queue_t)dispatchQueue
 {
+    return [self scheduledTimerWithTimeInterval:timeInterval
+                                         target:delegate
+                                       selector:@selector(weakTimerDidFire:)
+                                       userInfo:userInfo
+                                        repeats:repeats
+                                  dispatchQueue:dispatchQueue];
+}
+
++ (MSWeakTimer *)scheduledTimerWithTimeInterval:(NSTimeInterval)timeInterval target:(id)target selector:(SEL)selector userInfo:(id)userInfo repeats:(BOOL)repeats dispatchQueue:(dispatch_queue_t)dispatchQueue
+{
     MSWeakTimer *weakTimer = [[self alloc] init];
 
     weakTimer.timeInterval = timeInterval;
-    weakTimer.delegate = delegate;
+    weakTimer.target = target;
+    weakTimer.selector = selector;
     weakTimer.userInfo = userInfo;
     weakTimer.repeats = repeats;
 
@@ -76,7 +88,15 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"<%@ %p> time_interval=%f delegate=%@ userInfo=%@ repeats=%d timer=%@", NSStringFromClass([self class]), self, self.timeInterval, self.delegate, self.userInfo, self.repeats, self.timer];
+    return [NSString stringWithFormat:@"<%@ %p> time_interval=%f target=%@ selector=%@ userInfo=%@ repeats=%d timer=%@",
+            NSStringFromClass([self class]),
+            self,
+            self.timeInterval,
+            self.target,
+            NSStringFromSelector(self.selector),
+            self.userInfo,
+            self.repeats,
+            self.timer];
 }
 
 #pragma mark -
@@ -130,7 +150,12 @@
 
 - (void)timerFired
 {
-    [self.delegate weakTimerDidFire:self];
+    // We're not worried about this warning because the selector we're calling doesn't return a +1 object.
+
+    #pragma clang diagnostic push
+    #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+    [self.target performSelector:self.selector withObject:self];
+    #pragma clang diagnostic pop
 }
 
 @end
