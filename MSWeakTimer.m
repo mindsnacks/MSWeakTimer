@@ -33,7 +33,7 @@
 
 @property (nonatomic, ms_dispatch_queue_t_property_qualifier) dispatch_queue_t dispatchQueue;
 
-@property (atomic, assign) dispatch_source_t timer;
+@property (nonatomic, assign) dispatch_source_t timer;
 
 - (void)timerFired;
 
