@@ -1,0 +1,597 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D04B797A16CAE8FC0010271A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D04B797916CAE8FC0010271A /* UIKit.framework */; };
+		D04B797C16CAE8FC0010271A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D04B797B16CAE8FC0010271A /* Foundation.framework */; };
+		D04B797E16CAE8FC0010271A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D04B797D16CAE8FC0010271A /* CoreGraphics.framework */; };
+		D04B798416CAE8FC0010271A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04B798216CAE8FC0010271A /* InfoPlist.strings */; };
+		D04B798616CAE8FC0010271A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D04B798516CAE8FC0010271A /* main.m */; };
+		D04B798A16CAE8FC0010271A /* MSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D04B798916CAE8FC0010271A /* MSAppDelegate.m */; };
+		D04B798C16CAE8FC0010271A /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = D04B798B16CAE8FC0010271A /* Default.png */; };
+		D04B798E16CAE8FC0010271A /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D04B798D16CAE8FC0010271A /* Default@2x.png */; };
+		D04B799016CAE8FC0010271A /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D04B798F16CAE8FC0010271A /* Default-568h@2x.png */; };
+		D04B799816CAE8FC0010271A /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D04B799716CAE8FC0010271A /* SenTestingKit.framework */; };
+		D04B799916CAE8FC0010271A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D04B797916CAE8FC0010271A /* UIKit.framework */; };
+		D04B799A16CAE8FC0010271A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D04B797B16CAE8FC0010271A /* Foundation.framework */; };
+		D04B79A216CAE8FC0010271A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D04B79A016CAE8FC0010271A /* InfoPlist.strings */; };
+		D04B79A516CAE8FC0010271A /* MSWeakTimer_SampleProjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D04B79A416CAE8FC0010271A /* MSWeakTimer_SampleProjectTests.m */; };
+		D04B79B616CAE94A0010271A /* MSSampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D04B79B416CAE94A0010271A /* MSSampleViewController.m */; };
+		D04B79B716CAE94A0010271A /* MSSampleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D04B79B516CAE94A0010271A /* MSSampleViewController.xib */; };
+		D04B79BD16CAEE880010271A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D04B797B16CAE8FC0010271A /* Foundation.framework */; };
+		D04B79CC16CAEF160010271A /* MSWeakTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = D04B79AF16CAE91A0010271A /* MSWeakTimer.m */; };
+		D04B79CD16CAEF1A0010271A /* MSWeakTimer.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D04B79AE16CAE91A0010271A /* MSWeakTimer.h */; };
+		D04B79D016CAEF5F0010271A /* libMSWeakTimer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04B79BC16CAEE870010271A /* libMSWeakTimer.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D04B799B16CAE8FC0010271A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D04B796E16CAE8FC0010271A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D04B797516CAE8FC0010271A;
+			remoteInfo = "MSWeakTimer-SampleProject";
+		};
+		D04B79CA16CAEEB90010271A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D04B796E16CAE8FC0010271A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D04B79BB16CAEE870010271A;
+			remoteInfo = MSWeakTimer;
+		};
+		D04B79CE16CAEF300010271A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D04B796E16CAE8FC0010271A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D04B79BB16CAEE870010271A;
+			remoteInfo = MSWeakTimer;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		D04B79BA16CAEE870010271A /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/${PRODUCT_NAME}";
+			dstSubfolderSpec = 16;
+			files = (
+				D04B79CD16CAEF1A0010271A /* MSWeakTimer.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		D04B797616CAE8FC0010271A /* MSWeakTimer-SampleProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MSWeakTimer-SampleProject.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D04B797916CAE8FC0010271A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		D04B797B16CAE8FC0010271A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		D04B797D16CAE8FC0010271A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		D04B798116CAE8FC0010271A /* MSWeakTimer-SampleProject-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MSWeakTimer-SampleProject-Info.plist"; sourceTree = "<group>"; };
+		D04B798316CAE8FC0010271A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D04B798516CAE8FC0010271A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		D04B798716CAE8FC0010271A /* MSWeakTimer-SampleProject-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MSWeakTimer-SampleProject-Prefix.pch"; sourceTree = "<group>"; };
+		D04B798816CAE8FC0010271A /* MSAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSAppDelegate.h; sourceTree = "<group>"; };
+		D04B798916CAE8FC0010271A /* MSAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAppDelegate.m; sourceTree = "<group>"; };
+		D04B798B16CAE8FC0010271A /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		D04B798D16CAE8FC0010271A /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		D04B798F16CAE8FC0010271A /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		D04B799616CAE8FC0010271A /* MSWeakTimer-SampleProjectTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MSWeakTimer-SampleProjectTests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D04B799716CAE8FC0010271A /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		D04B799F16CAE8FC0010271A /* MSWeakTimer-SampleProjectTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MSWeakTimer-SampleProjectTests-Info.plist"; sourceTree = "<group>"; };
+		D04B79A116CAE8FC0010271A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D04B79A316CAE8FC0010271A /* MSWeakTimer_SampleProjectTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSWeakTimer_SampleProjectTests.h; sourceTree = "<group>"; };
+		D04B79A416CAE8FC0010271A /* MSWeakTimer_SampleProjectTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSWeakTimer_SampleProjectTests.m; sourceTree = "<group>"; };
+		D04B79AE16CAE91A0010271A /* MSWeakTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MSWeakTimer.h; path = ../../MSWeakTimer.h; sourceTree = "<group>"; };
+		D04B79AF16CAE91A0010271A /* MSWeakTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MSWeakTimer.m; path = ../../MSWeakTimer.m; sourceTree = "<group>"; };
+		D04B79B316CAE94A0010271A /* MSSampleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MSSampleViewController.h; path = Classes/MSSampleViewController.h; sourceTree = "<group>"; };
+		D04B79B416CAE94A0010271A /* MSSampleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MSSampleViewController.m; path = Classes/MSSampleViewController.m; sourceTree = "<group>"; };
+		D04B79B516CAE94A0010271A /* MSSampleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MSSampleViewController.xib; path = Classes/MSSampleViewController.xib; sourceTree = "<group>"; };
+		D04B79BC16CAEE870010271A /* libMSWeakTimer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMSWeakTimer.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D04B79C016CAEE880010271A /* MSWeakTimer-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MSWeakTimer-Prefix.pch"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D04B797316CAE8FC0010271A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D04B79D016CAEF5F0010271A /* libMSWeakTimer.a in Frameworks */,
+				D04B797A16CAE8FC0010271A /* UIKit.framework in Frameworks */,
+				D04B797C16CAE8FC0010271A /* Foundation.framework in Frameworks */,
+				D04B797E16CAE8FC0010271A /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D04B799216CAE8FC0010271A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D04B799816CAE8FC0010271A /* SenTestingKit.framework in Frameworks */,
+				D04B799916CAE8FC0010271A /* UIKit.framework in Frameworks */,
+				D04B799A16CAE8FC0010271A /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D04B79B916CAEE870010271A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D04B79BD16CAEE880010271A /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D04B796D16CAE8FC0010271A = {
+			isa = PBXGroup;
+			children = (
+				D04B797F16CAE8FC0010271A /* MSWeakTimer-SampleProject */,
+				D04B799D16CAE8FC0010271A /* MSWeakTimer-SampleProjectTests */,
+				D04B79BE16CAEE880010271A /* MSWeakTimer */,
+				D04B797816CAE8FC0010271A /* Frameworks */,
+				D04B797716CAE8FC0010271A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D04B797716CAE8FC0010271A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D04B797616CAE8FC0010271A /* MSWeakTimer-SampleProject.app */,
+				D04B799616CAE8FC0010271A /* MSWeakTimer-SampleProjectTests.octest */,
+				D04B79BC16CAEE870010271A /* libMSWeakTimer.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D04B797816CAE8FC0010271A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D04B797916CAE8FC0010271A /* UIKit.framework */,
+				D04B797B16CAE8FC0010271A /* Foundation.framework */,
+				D04B797D16CAE8FC0010271A /* CoreGraphics.framework */,
+				D04B799716CAE8FC0010271A /* SenTestingKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D04B797F16CAE8FC0010271A /* MSWeakTimer-SampleProject */ = {
+			isa = PBXGroup;
+			children = (
+				D04B798816CAE8FC0010271A /* MSAppDelegate.h */,
+				D04B798916CAE8FC0010271A /* MSAppDelegate.m */,
+				D04B79B316CAE94A0010271A /* MSSampleViewController.h */,
+				D04B79B416CAE94A0010271A /* MSSampleViewController.m */,
+				D04B79B516CAE94A0010271A /* MSSampleViewController.xib */,
+				D04B798016CAE8FC0010271A /* Supporting Files */,
+			);
+			path = "MSWeakTimer-SampleProject";
+			sourceTree = "<group>";
+		};
+		D04B798016CAE8FC0010271A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D04B798116CAE8FC0010271A /* MSWeakTimer-SampleProject-Info.plist */,
+				D04B798216CAE8FC0010271A /* InfoPlist.strings */,
+				D04B798516CAE8FC0010271A /* main.m */,
+				D04B798716CAE8FC0010271A /* MSWeakTimer-SampleProject-Prefix.pch */,
+				D04B798B16CAE8FC0010271A /* Default.png */,
+				D04B798D16CAE8FC0010271A /* Default@2x.png */,
+				D04B798F16CAE8FC0010271A /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D04B799D16CAE8FC0010271A /* MSWeakTimer-SampleProjectTests */ = {
+			isa = PBXGroup;
+			children = (
+				D04B79A316CAE8FC0010271A /* MSWeakTimer_SampleProjectTests.h */,
+				D04B79A416CAE8FC0010271A /* MSWeakTimer_SampleProjectTests.m */,
+				D04B799E16CAE8FC0010271A /* Supporting Files */,
+			);
+			path = "MSWeakTimer-SampleProjectTests";
+			sourceTree = "<group>";
+		};
+		D04B799E16CAE8FC0010271A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D04B799F16CAE8FC0010271A /* MSWeakTimer-SampleProjectTests-Info.plist */,
+				D04B79A016CAE8FC0010271A /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D04B79BE16CAEE880010271A /* MSWeakTimer */ = {
+			isa = PBXGroup;
+			children = (
+				D04B79AE16CAE91A0010271A /* MSWeakTimer.h */,
+				D04B79AF16CAE91A0010271A /* MSWeakTimer.m */,
+				D04B79BF16CAEE880010271A /* Supporting Files */,
+			);
+			path = MSWeakTimer;
+			sourceTree = "<group>";
+		};
+		D04B79BF16CAEE880010271A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D04B79C016CAEE880010271A /* MSWeakTimer-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D04B797516CAE8FC0010271A /* MSWeakTimer-SampleProject */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D04B79A816CAE8FC0010271A /* Build configuration list for PBXNativeTarget "MSWeakTimer-SampleProject" */;
+			buildPhases = (
+				D04B797216CAE8FC0010271A /* Sources */,
+				D04B797316CAE8FC0010271A /* Frameworks */,
+				D04B797416CAE8FC0010271A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D04B79CB16CAEEB90010271A /* PBXTargetDependency */,
+			);
+			name = "MSWeakTimer-SampleProject";
+			productName = "MSWeakTimer-SampleProject";
+			productReference = D04B797616CAE8FC0010271A /* MSWeakTimer-SampleProject.app */;
+			productType = "com.apple.product-type.application";
+		};
+		D04B799516CAE8FC0010271A /* MSWeakTimer-SampleProjectTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D04B79AB16CAE8FC0010271A /* Build configuration list for PBXNativeTarget "MSWeakTimer-SampleProjectTests" */;
+			buildPhases = (
+				D04B799116CAE8FC0010271A /* Sources */,
+				D04B799216CAE8FC0010271A /* Frameworks */,
+				D04B799316CAE8FC0010271A /* Resources */,
+				D04B799416CAE8FC0010271A /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D04B79CF16CAEF300010271A /* PBXTargetDependency */,
+				D04B799C16CAE8FC0010271A /* PBXTargetDependency */,
+			);
+			name = "MSWeakTimer-SampleProjectTests";
+			productName = "MSWeakTimer-SampleProjectTests";
+			productReference = D04B799616CAE8FC0010271A /* MSWeakTimer-SampleProjectTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+		D04B79BB16CAEE870010271A /* MSWeakTimer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D04B79C516CAEE880010271A /* Build configuration list for PBXNativeTarget "MSWeakTimer" */;
+			buildPhases = (
+				D04B79B816CAEE870010271A /* Sources */,
+				D04B79B916CAEE870010271A /* Frameworks */,
+				D04B79BA16CAEE870010271A /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MSWeakTimer;
+			productName = MSWeakTimer;
+			productReference = D04B79BC16CAEE870010271A /* libMSWeakTimer.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D04B796E16CAE8FC0010271A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = MS;
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = MindSnacks;
+			};
+			buildConfigurationList = D04B797116CAE8FC0010271A /* Build configuration list for PBXProject "MSWeakTimer-SampleProject" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = D04B796D16CAE8FC0010271A;
+			productRefGroup = D04B797716CAE8FC0010271A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D04B797516CAE8FC0010271A /* MSWeakTimer-SampleProject */,
+				D04B799516CAE8FC0010271A /* MSWeakTimer-SampleProjectTests */,
+				D04B79BB16CAEE870010271A /* MSWeakTimer */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D04B797416CAE8FC0010271A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D04B798416CAE8FC0010271A /* InfoPlist.strings in Resources */,
+				D04B798C16CAE8FC0010271A /* Default.png in Resources */,
+				D04B798E16CAE8FC0010271A /* Default@2x.png in Resources */,
+				D04B799016CAE8FC0010271A /* Default-568h@2x.png in Resources */,
+				D04B79B716CAE94A0010271A /* MSSampleViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D04B799316CAE8FC0010271A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D04B79A216CAE8FC0010271A /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		D04B799416CAE8FC0010271A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D04B797216CAE8FC0010271A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D04B798616CAE8FC0010271A /* main.m in Sources */,
+				D04B798A16CAE8FC0010271A /* MSAppDelegate.m in Sources */,
+				D04B79B616CAE94A0010271A /* MSSampleViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D04B799116CAE8FC0010271A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D04B79A516CAE8FC0010271A /* MSWeakTimer_SampleProjectTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D04B79B816CAEE870010271A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D04B79CC16CAEF160010271A /* MSWeakTimer.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D04B799C16CAE8FC0010271A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D04B797516CAE8FC0010271A /* MSWeakTimer-SampleProject */;
+			targetProxy = D04B799B16CAE8FC0010271A /* PBXContainerItemProxy */;
+		};
+		D04B79CB16CAEEB90010271A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D04B79BB16CAEE870010271A /* MSWeakTimer */;
+			targetProxy = D04B79CA16CAEEB90010271A /* PBXContainerItemProxy */;
+		};
+		D04B79CF16CAEF300010271A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D04B79BB16CAEE870010271A /* MSWeakTimer */;
+			targetProxy = D04B79CE16CAEF300010271A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		D04B798216CAE8FC0010271A /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D04B798316CAE8FC0010271A /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		D04B79A016CAE8FC0010271A /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D04B79A116CAE8FC0010271A /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D04B79A616CAE8FC0010271A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		D04B79A716CAE8FC0010271A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D04B79A916CAE8FC0010271A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MSWeakTimer-SampleProject/MSWeakTimer-SampleProject-Prefix.pch";
+				INFOPLIST_FILE = "MSWeakTimer-SampleProject/MSWeakTimer-SampleProject-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		D04B79AA16CAE8FC0010271A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MSWeakTimer-SampleProject/MSWeakTimer-SampleProject-Prefix.pch";
+				INFOPLIST_FILE = "MSWeakTimer-SampleProject/MSWeakTimer-SampleProject-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		D04B79AC16CAE8FC0010271A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MSWeakTimer-SampleProject.app/MSWeakTimer-SampleProject";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MSWeakTimer-SampleProject/MSWeakTimer-SampleProject-Prefix.pch";
+				INFOPLIST_FILE = "MSWeakTimer-SampleProjectTests/MSWeakTimer-SampleProjectTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		D04B79AD16CAE8FC0010271A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MSWeakTimer-SampleProject.app/MSWeakTimer-SampleProject";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MSWeakTimer-SampleProject/MSWeakTimer-SampleProject-Prefix.pch";
+				INFOPLIST_FILE = "MSWeakTimer-SampleProjectTests/MSWeakTimer-SampleProjectTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+		D04B79C616CAEE880010271A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/MSWeakTimer.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MSWeakTimer/MSWeakTimer-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		D04B79C716CAEE880010271A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/MSWeakTimer.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MSWeakTimer/MSWeakTimer-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D04B797116CAE8FC0010271A /* Build configuration list for PBXProject "MSWeakTimer-SampleProject" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D04B79A616CAE8FC0010271A /* Debug */,
+				D04B79A716CAE8FC0010271A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D04B79A816CAE8FC0010271A /* Build configuration list for PBXNativeTarget "MSWeakTimer-SampleProject" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D04B79A916CAE8FC0010271A /* Debug */,
+				D04B79AA16CAE8FC0010271A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D04B79AB16CAE8FC0010271A /* Build configuration list for PBXNativeTarget "MSWeakTimer-SampleProjectTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D04B79AC16CAE8FC0010271A /* Debug */,
+				D04B79AD16CAE8FC0010271A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D04B79C516CAEE880010271A /* Build configuration list for PBXNativeTarget "MSWeakTimer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D04B79C616CAEE880010271A /* Debug */,
+				D04B79C716CAEE880010271A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D04B796E16CAE8FC0010271A /* Project object */;
+}
