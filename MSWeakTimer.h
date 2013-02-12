@@ -8,28 +8,17 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol MSWeakTimerDelegate;
+@interface MSWeakTimer : NSObject
 
 /**
- * @class `MSWeakTimer` behaves similar to an `NSTimer` but doesn't retain the target/delegate.
+ * @class `MSWeakTimer` behaves similar to an `NSTimer` but doesn't retain the target.
  * @discussion this timer is implemented using GCD, so you can schedule and unschedule it on arbitrary queues
  * (unlike regular NSTimers!)
- * It's safe to retain this timer by the object that is also the delegate.
+ * It's safe to retain this timer by the object that is also the target.
  * You can call -invalidate from any queue, doesn't have to be the queue from where you scheduled it
  * or the provided dispatchQueue.
  * @param dispatchQueue the queue where the delegate method will be dispatched. Note: the queue is retained.
  * @see `-invalidate`.
- */
-@interface MSWeakTimer : NSObject
-
-+ (MSWeakTimer *)scheduledTimerWithTimeInterval:(NSTimeInterval)timeInterval
-                                       delegate:(id<MSWeakTimerDelegate>)delegate
-                                       userInfo:(id)userInfo
-                                        repeats:(BOOL)repeats
-                                  dispatchQueue:(dispatch_queue_t)dispatchQueue;
-
-/**
- * @discussion behaves exactly like the other constructor, but allows to customize the selector.
  */
 + (MSWeakTimer *)scheduledTimerWithTimeInterval:(NSTimeInterval)timeInterval
                                          target:(id)target
@@ -54,11 +43,5 @@
 - (void)invalidate;
 
 - (id)userInfo;
-
-@end
-
-@protocol MSWeakTimerDelegate <NSObject>
-
-- (void)weakTimerDidFire:(MSWeakTimer *)timer;
 
 @end

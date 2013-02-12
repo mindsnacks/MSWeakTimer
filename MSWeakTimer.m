@@ -47,20 +47,6 @@
 @implementation MSWeakTimer
 
 + (MSWeakTimer *)scheduledTimerWithTimeInterval:(NSTimeInterval)timeInterval
-                                       delegate:(id<MSWeakTimerDelegate>)delegate
-                                       userInfo:(id)userInfo
-                                        repeats:(BOOL)repeats
-                                  dispatchQueue:(dispatch_queue_t)dispatchQueue
-{
-    return [self scheduledTimerWithTimeInterval:timeInterval
-                                         target:delegate
-                                       selector:@selector(weakTimerDidFire:)
-                                       userInfo:userInfo
-                                        repeats:repeats
-                                  dispatchQueue:dispatchQueue];
-}
-
-+ (MSWeakTimer *)scheduledTimerWithTimeInterval:(NSTimeInterval)timeInterval
                                          target:(id)target
                                        selector:(SEL)selector
                                        userInfo:(id)userInfo

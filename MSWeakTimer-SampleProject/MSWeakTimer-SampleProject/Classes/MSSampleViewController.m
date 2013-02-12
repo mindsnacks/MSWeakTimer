@@ -14,7 +14,7 @@
     #error this class is only ready to work on iOS6
 #endif
 
-@interface MSSampleViewController () <MSWeakTimerDelegate>
+@interface MSSampleViewController ()
 
 @property (weak, nonatomic) IBOutlet UILabel *label;
 
@@ -71,7 +71,8 @@
     {
         [sender setTitle:kStopTimerText forState:UIControlStateNormal];
         self.timer = [MSWeakTimer scheduledTimerWithTimeInterval:1
-                                                        delegate:self
+                                                          target:self
+                                                        selector:@selector(mainThreadTimerDidFire:)
                                                         userInfo:nil
                                                          repeats:YES
                                                    dispatchQueue:dispatch_get_main_queue()];
@@ -80,7 +81,7 @@
 
 #pragma mark - MSWeakTimerDelegate
 
-- (void)weakTimerDidFire:(MSWeakTimer *)timer
+- (void)mainThreadTimerDidFire:(MSWeakTimer *)timer
 {
     NSAssert([NSThread isMainThread], @"This should be called from the main thread");
 
