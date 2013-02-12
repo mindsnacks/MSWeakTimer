@@ -20,20 +20,15 @@ More often than not, an object needs to create a timer and invalidate it when a 
 
 ### How to Use
 
-Create a `MSWeakTimer` object with the class method:
+Create a `MSWeakTimer` object with this class method:
 
 ```objc
 + (MSWeakTimer *)scheduledTimerWithTimeInterval:(NSTimeInterval)timeInterval
-                                       delegate:(id<MSWeakTimerDelegate>)delegate
+                                         target:(id)target
+                                       selector:(SEL)selector
                                        userInfo:(id)userInfo
                                         repeats:(BOOL)repeats
                                   dispatchQueue:(dispatch_queue_t)dispatchQueue;
-```
-
-And the timer will start firing after `timeInterval`, calling this delegate method:
-
-```objc
-- (void)weakTimerDidFire:(MSWeakTimer *)timer;
 ```
 
 ### Compatibility
