@@ -60,8 +60,17 @@
                                   dispatchQueue:dispatchQueue];
 }
 
-+ (MSWeakTimer *)scheduledTimerWithTimeInterval:(NSTimeInterval)timeInterval target:(id)target selector:(SEL)selector userInfo:(id)userInfo repeats:(BOOL)repeats dispatchQueue:(dispatch_queue_t)dispatchQueue
++ (MSWeakTimer *)scheduledTimerWithTimeInterval:(NSTimeInterval)timeInterval
+                                         target:(id)target
+                                       selector:(SEL)selector
+                                       userInfo:(id)userInfo
+                                        repeats:(BOOL)repeats
+                                  dispatchQueue:(dispatch_queue_t)dispatchQueue
 {
+    NSParameterAssert(target);
+    NSParameterAssert(selector);
+    NSParameterAssert(dispatchQueue);
+
     MSWeakTimer *weakTimer = [[self alloc] init];
 
     weakTimer.timeInterval = timeInterval;
