@@ -12,6 +12,18 @@
     #error MSWeakTimer is ARC only. Either turn on ARC for the project or use -fobjc-arc flag
 #endif
 
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < 60000
+    #define MSTreatQueuesAsObjects (0)
+#else
+    #define MSTreatQueuesAsObjects (1)
+#endif
+
+#if MSTreatQueuesAsObjects
+    #define ms_dispatch_queue_t_property_qualifier strong
+#else
+    #define ms_dispatch_queue_t_property_qualifier assign
+#endif
+
 @interface MSWeakTimer ()
 
 @property (nonatomic, assign) NSTimeInterval timeInterval;
@@ -19,7 +31,7 @@
 @property (nonatomic, retain) id userInfo;
 @property (nonatomic, assign) BOOL repeats;
 
-@property (nonatomic, assign) dispatch_queue_t dispatchQueue;
+@property (nonatomic, ms_dispatch_queue_t_property_qualifier) dispatch_queue_t dispatchQueue;
 
 @property (atomic, assign) dispatch_source_t timer;
 
@@ -53,7 +65,10 @@
 - (void)dealloc
 {
     [self invalidate];
-    dispatch_release(_dispatchQueue);
+
+    #if !MSTreatQueuesAsObjects
+        dispatch_release(_dispatchQueue);
+    #endif
 }
 
 - (NSString *)description
