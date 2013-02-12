@@ -19,9 +19,13 @@
 #endif
 
 #if MSTreatQueuesAsObjects
-    #define ms_dispatch_queue_t_property_qualifier strong
+    #define ms_gcd_property_qualifier strong
+    #define ms_retain_gcd_object(object)
+    #define ms_release_gcd_object(object)
 #else
-    #define ms_dispatch_queue_t_property_qualifier assign
+    #define ms_gcd_property_qualifier assign
+    #define ms_retain_gcd_object(object) dispatch_retain(object)
+    #define ms_release_gcd_object(object) dispatch_release(object)
 #endif
 
 @interface MSWeakTimer ()
@@ -31,9 +35,9 @@
 @property (nonatomic, retain) id userInfo;
 @property (nonatomic, assign) BOOL repeats;
 
-@property (nonatomic, ms_dispatch_queue_t_property_qualifier) dispatch_queue_t dispatchQueue;
+@property (nonatomic, ms_gcd_property_qualifier) dispatch_queue_t dispatchQueue;
 
-@property (nonatomic, assign) dispatch_source_t timer;
+@property (nonatomic, ms_gcd_property_qualifier) dispatch_source_t timer;
 
 - (void)timerFired;
 
@@ -54,9 +58,7 @@
     weakTimer.userInfo = userInfo;
     weakTimer.repeats = repeats;
 
-    #if !MSTreatQueuesAsObjects
-        dispatch_retain(dispatchQueue);
-    #endif
+    ms_retain_gcd_object(dispatchQueue);
 
     weakTimer.dispatchQueue = dispatchQueue;
 
@@ -69,9 +71,7 @@
 {
     [self invalidate];
 
-    #if !MSTreatQueuesAsObjects
-        dispatch_release(_dispatchQueue);
-    #endif
+    ms_release_gcd_object(_dispatchQueue);
 }
 
 - (NSString *)description
@@ -122,7 +122,7 @@
         if (self.timer)
         {
             dispatch_source_cancel(self.timer);
-            dispatch_release(self.timer);
+            ms_release_gcd_object(self.timer);
             self.timer = nil;
         }
     }
