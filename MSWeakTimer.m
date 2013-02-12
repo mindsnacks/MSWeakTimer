@@ -7,6 +7,7 @@
 //
 
 #import "MSWeakTimer.h"
+#import <objc/message.h>
 
 #if !__has_feature(objc_arc)
     #error MSWeakTimer is ARC only. Either turn on ARC for the project or use -fobjc-arc flag
@@ -32,6 +33,8 @@
 
 @property (nonatomic, assign) NSTimeInterval timeInterval;
 @property (nonatomic, assign) id<MSWeakTimerDelegate> delegate;
+@property (nonatomic, weak) id target;
+@property (nonatomic, assign) SEL selector;
 @property (nonatomic, retain) id userInfo;
 @property (nonatomic, assign) BOOL repeats;
 
@@ -67,6 +70,31 @@
     return weakTimer;
 }
 
++ (MSWeakTimer *)scheduledTimerWithTimeInterval:(NSTimeInterval)timeInterval
+                                         target:(id)target
+                                       selector:(SEL)selector
+                                       userInfo:(id)userInfo
+                                        repeats:(BOOL)repeats
+                                  dispatchQueue:(dispatch_queue_t)dispatchQueue
+{
+    MSWeakTimer *weakTimer = [[self alloc] init];
+
+    weakTimer.timeInterval = timeInterval;
+    weakTimer.target = target;
+    weakTimer.selector = selector;
+    weakTimer.userInfo = userInfo;
+    weakTimer.repeats = repeats;
+
+    ms_retain_gcd_object(dispatchQueue);
+
+    weakTimer.dispatchQueue = dispatchQueue;
+
+    [weakTimer schedule];
+
+    return weakTimer;
+
+}
+
 - (void)dealloc
 {
     [self invalidate];
@@ -76,7 +104,14 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"<%@ %p> time_interval=%f delegate=%@ userInfo=%@ repeats=%d timer=%@", NSStringFromClass([self class]), self, self.timeInterval, self.delegate, self.userInfo, self.repeats, self.timer];
+    if (self.delegate)
+    {
+        return [NSString stringWithFormat:@"<%@ %p> time_interval=%f delegate=%@ userInfo=%@ repeats=%d timer=%@", NSStringFromClass([self class]), self, self.timeInterval, self.delegate, self.userInfo, self.repeats, self.timer];
+    }
+    else
+    {
+        return [NSString stringWithFormat:@"<%@ %p> time_interval=%f target=%@ selector=%@ userInfo=%@ repeats=%d timer=%@", NSStringFromClass([self class]), self, self.timeInterval, self.target, NSStringFromSelector(self.selector), self.userInfo, self.repeats, self.timer];
+    }
 }
 
 #pragma mark -
@@ -130,7 +165,14 @@
 
 - (void)timerFired
 {
-    [self.delegate weakTimerDidFire:self];
+    if (self.delegate)
+    {
+        [self.delegate weakTimerDidFire:self];
+    }
+    else
+    {
+        objc_msgSend(self.target, self.selector);
+    }
 }
 
 @end
