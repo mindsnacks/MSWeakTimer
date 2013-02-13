@@ -12,13 +12,7 @@
     #error MSWeakTimer is ARC only. Either turn on ARC for the project or use -fobjc-arc flag
 #endif
 
-#if __IPHONE_OS_VERSION_MIN_REQUIRED < 60000
-    #define MSTreatQueuesAsObjects (0)
-#else
-    #define MSTreatQueuesAsObjects (1)
-#endif
-
-#if MSTreatQueuesAsObjects
+#if OS_OBJECT_USE_OBJC
     #define ms_gcd_property_qualifier strong
     #define ms_retain_gcd_object(object)
     #define ms_release_gcd_object(object)
