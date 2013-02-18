@@ -34,5 +34,5 @@ Create a `MSWeakTimer` object with this class method:
 ### Compatibility
 
 - Supports ARC. If you want to use it in a project without ARC, mark ```MSWeakTimer.m``` with the linker flag ```-fobjc-arc```.
-- Should work with iOS4+.
+- Should work with iOS4+ and Mac OSX 10.6+.
 
