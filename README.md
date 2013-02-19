@@ -20,7 +20,7 @@ More often than not, an object needs to create a timer and invalidate it when a 
 
 ### How to Use
 
-Create a `MSWeakTimer` object with this class method:
+Create an `MSWeakTimer` object with this class method:
 
 ```objc
 + (MSWeakTimer *)scheduledTimerWithTimeInterval:(NSTimeInterval)timeInterval
