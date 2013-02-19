@@ -31,6 +31,8 @@ Create a `MSWeakTimer` object with this class method:
                                   dispatchQueue:(dispatch_queue_t)dispatchQueue;
 ```
 
+Check out the code in the [sample app](https://github.com/mindsnacks/MSWeakTimer/blob/master/MSWeakTimer-SampleProject/MSWeakTimer-SampleProject/Classes/MSSampleViewController.m).
+
 ### Compatibility
 
 - Supports ARC. If you want to use it in a project without ARC, mark ```MSWeakTimer.m``` with the linker flag ```-fobjc-arc```.
