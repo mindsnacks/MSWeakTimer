@@ -28,8 +28,9 @@
                                   dispatchQueue:(dispatch_queue_t)dispatchQueue;
 
 /**
- * @discussion causes the timer to be fired synchronously with this call.
- * @note this fires the timer on the caller queue, not on the provided dispatch_queue.
+ * @discussion causes the timer to be fired asynchronously on the provided dispatchQueue.
+ * You can use this method to fire a repeating timer without interrupting its regular firing schedule.
+ * If the timer is non-repeating, it is automatically invalidated after firing, even if its scheduled fire date has not arrived.
  */
 - (void)fire;
 

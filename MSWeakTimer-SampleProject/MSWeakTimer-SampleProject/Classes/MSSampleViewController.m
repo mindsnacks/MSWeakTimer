@@ -65,7 +65,6 @@
     {
         [sender setTitle:kStartTimerText forState:UIControlStateNormal];
         [self.timer invalidate];
-        self.timer = nil;
     }
     else
     {
@@ -77,6 +76,11 @@
                                                          repeats:YES
                                                    dispatchQueue:dispatch_get_main_queue()];
     }
+}
+
+- (IBAction)fireTimer
+{
+    [self.timer fire];
 }
 
 #pragma mark - MSWeakTimerDelegate

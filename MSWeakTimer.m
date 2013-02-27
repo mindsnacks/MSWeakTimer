@@ -106,14 +106,7 @@
     __weak typeof(self) weakSelf = self;
 
     dispatch_source_set_event_handler(self.timer, ^{
-        __strong typeof(self) strongSelf = weakSelf;
-        
-        [strongSelf timerFired];
-
-        if (!strongSelf.repeats)
-        {
-            [strongSelf invalidate];
-        }
+        [weakSelf timerFired];
     });
 
     dispatch_resume(self.timer);
@@ -121,7 +114,9 @@
 
 - (void)fire
 {
-    [self timerFired];
+    dispatch_async(self.dispatchQueue, ^{
+        [self timerFired];
+    });
 }
 
 - (void)invalidate
@@ -139,12 +134,19 @@
 
 - (void)timerFired
 {
-    // We're not worried about this warning because the selector we're calling doesn't return a +1 object.
+    @synchronized(self)
+    {
+        // We're not worried about this warning because the selector we're calling doesn't return a +1 object.
+        #pragma clang diagnostic push
+        #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+        [self.target performSelector:self.selector withObject:self];
+        #pragma clang diagnostic pop
 
-    #pragma clang diagnostic push
-    #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-    [self.target performSelector:self.selector withObject:self];
-    #pragma clang diagnostic pop
+        if (!self.repeats)
+        {
+            [self invalidate];
+        }
+    }
 }
 
 @end
