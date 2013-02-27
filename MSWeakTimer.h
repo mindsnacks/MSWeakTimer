@@ -17,7 +17,7 @@
  * It's safe to retain this timer by the object that is also the target.
  * You can call -invalidate from any queue, doesn't have to be the queue from where you scheduled it
  * or the provided dispatchQueue.
- * @param dispatchQueue the queue where the delegate method will be dispatched. Note: the queue is retained.
+ * @param dispatchQueue the queue where the delegate method will be dispatched. It can be either a serial or concurrent queue. Note: the queue is retained.
  * @see `-invalidate`.
  */
 + (MSWeakTimer *)scheduledTimerWithTimeInterval:(NSTimeInterval)timeInterval
