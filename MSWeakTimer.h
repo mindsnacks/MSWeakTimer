@@ -43,6 +43,12 @@
  */
 - (void)invalidate;
 
+/**
+ * @discussion returns a Boolean value that indicates whether the receiver is currently valid.
+ * @return YES if the receiver is still capable of firing or NO if the timer has been invalidated and is no longer capable of firing.
+ */
+- (BOOL)isValid;
+
 - (id)userInfo;
 
 @end

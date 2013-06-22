@@ -149,4 +149,15 @@
     }
 }
 
+#pragma mark -
+
+- (BOOL)isValid
+{
+    @synchronized(self)
+    {
+        return nil != self.timer;
+    }
+}
+
+
 @end
