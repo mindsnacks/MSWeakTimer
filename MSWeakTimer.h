@@ -49,6 +49,12 @@
  */
 - (BOOL)isValid;
 
+/**
+ * @discussion returns the receiver’s time interval.
+ * @return the receiver’s time interval. If the receiver is a non-repeating timer, returns 0 (even if a time interval was set).
+ */
+- (NSTimeInterval)timeInterval;
+
 - (id)userInfo;
 
 @end
