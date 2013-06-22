@@ -22,7 +22,10 @@
     #define ms_release_gcd_object(object) dispatch_release(object)
 #endif
 
-@interface MSWeakTimer ()
+@interface MSWeakTimer (){
+    NSDate *_fireDate;
+    BOOL _fireDateTweaked;
+}
 
 @property (nonatomic, assign) NSTimeInterval timeInterval;
 @property (nonatomic, weak) id target;
@@ -97,12 +100,8 @@
                                         0,
                                         self.dispatchQueue);
 
-    int64_t intervalInNanoseconds = (int64_t)(self.timeInterval * NSEC_PER_SEC);
-    dispatch_source_set_timer(self.timer,
-                              dispatch_time(DISPATCH_TIME_NOW, intervalInNanoseconds),
-                              (uint64_t)intervalInNanoseconds,
-                              0);
-
+    [self scheduleWithTimeInterval:self.timeInterval];
+    
     __weak typeof(self) weakSelf = self;
 
     dispatch_source_set_event_handler(self.timer, ^{
@@ -110,6 +109,16 @@
     });
 
     dispatch_resume(self.timer);
+}
+
+- (void)scheduleWithTimeInterval:(NSTimeInterval)interval
+{
+    int64_t intervalInNanoseconds = (int64_t)(interval * NSEC_PER_SEC);
+    dispatch_source_set_timer(self.timer,
+                              dispatch_time(DISPATCH_TIME_NOW, intervalInNanoseconds),
+                              (uint64_t)intervalInNanoseconds,
+                              0);
+    _fireDate = [NSDate dateWithTimeIntervalSinceNow:interval];
 }
 
 - (void)fire
@@ -136,16 +145,22 @@
 {
     @synchronized(self)
     {
+        if (!self.repeats)
+        {
+            [self invalidate];
+        }else
+        {
+            if (_fireDateTweaked) {
+                _fireDateTweaked = NO;
+                [self scheduleWithTimeInterval:self.timeInterval];
+            }
+        }
+        
         // We're not worried about this warning because the selector we're calling doesn't return a +1 object.
         #pragma clang diagnostic push
         #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
         [self.target performSelector:self.selector withObject:self];
         #pragma clang diagnostic pop
-
-        if (!self.repeats)
-        {
-            [self invalidate];
-        }
     }
 }
 
@@ -159,5 +174,35 @@
     }
 }
 
+- (NSDate *)fireDate
+{
+    @synchronized(self)
+    {
+        if (self.isValid)
+        {
+            return _fireDate;
+        }else
+        {
+            return [NSDate dateWithTimeIntervalSinceReferenceDate:0];
+        }
+    }
+}
+
+- (void)setFireDate:(NSDate *)date
+{
+    @synchronized(self)
+    {
+        if (self.isValid)
+        {
+            NSTimeInterval interval = [date timeIntervalSinceNow];
+            if (interval < 0)
+            {
+                interval = 0;
+            }
+            _fireDateTweaked = YES;
+            [self scheduleWithTimeInterval:interval];
+        }
+    }
+}
 
 @end
