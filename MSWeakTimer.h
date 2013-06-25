@@ -43,6 +43,30 @@
  */
 - (void)invalidate;
 
+/**
+ * @discussion returns a Boolean value that indicates whether the receiver is currently valid.
+ * @return YES if the receiver is still capable of firing or NO if the timer has been invalidated and is no longer capable of firing.
+ */
+- (BOOL)isValid;
+
+/**
+ * @discussion returns the date at which the receiver will fire.
+ * @return the date at which the receiver will fire. If the timer is no longer valid, this method returns the absolute reference date (the first instant of 1 January 2001, GMT).
+ */
+- (NSDate *)fireDate;
+
+/**
+ @discussion you typically use this method to adjust the firing time of a repeating timer. For example, you could use it in situations where you want to repeat an action multiple times in the future, but at irregular time intervals. Adjusting the firing time of a single timer would likely incur less expense than creating multiple timer objects and then destroying them.
+ @param date the new date at which to fire the receiver. If the new date is in the past, this method sets the fire time to the current time.
+ */
+- (void)setFireDate:(NSDate *)date;
+
+/**
+ * @discussion returns the receiver’s time interval.
+ * @return the receiver’s time interval. If the receiver is a non-repeating timer, returns 0 (even if a time interval was set).
+ */
+- (NSTimeInterval)timeInterval;
+
 - (id)userInfo;
 
 @end
