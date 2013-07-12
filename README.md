@@ -1,11 +1,11 @@
 MSWeakTimer
 ===========
 
-### Description
+## Description
 
 Thread-safe `NSTimer` drop-in alternative that doesn't retain the target and supports being used with `GCD` queues.
 
-### Motivation
+## Motivation
 The first motivation for this class was to have a type of timer that objects could *own* and retain, without this creating a retain cycle ( *like `NSTimer` causes, since it retains its target* ). This way you can just release the timer in the `-dealloc` method of the object class that owns the timer.
 
 The other problem when using `NSTimer` is this note on the documentation:
@@ -18,7 +18,10 @@ More often than not, an object needs to create a timer and invalidate it when a 
 
 [Related Stackoverflow question](http://stackoverflow.com/questions/14653951/is-it-safe-to-schedule-and-invalidate-nstimers-on-a-gcd-serial-queue/14657684#14657684).
 
-### How to Use
+### Implementation
+The implementation of `MSWeakTimer` was reviewed and validated by a `libdispatch` (`GCD`) engineer at the WWDC 2013 Core OS Lab.
+
+## How to Use
 
 Create an `MSWeakTimer` object with this class method:
 
@@ -33,7 +36,7 @@ Create an `MSWeakTimer` object with this class method:
 
 Check out the code in the [sample app](https://github.com/mindsnacks/MSWeakTimer/blob/master/MSWeakTimer-SampleProject/MSWeakTimer-SampleProject/Classes/MSSampleViewController.m).
 
-### Compatibility
+## Compatibility
 
 - Supports ARC. If you want to use it in a project without ARC, mark ```MSWeakTimer.m``` with the linker flag ```-fobjc-arc```.
 - Supports iOS iOS5+ and Mac OSX 10.7+.
