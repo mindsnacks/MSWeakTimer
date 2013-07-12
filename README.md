@@ -18,7 +18,7 @@ More often than not, an object needs to create a timer and invalidate it when a 
 
 [Related Stackoverflow question](http://stackoverflow.com/questions/14653951/is-it-safe-to-schedule-and-invalidate-nstimers-on-a-gcd-serial-queue/14657684#14657684).
 
-### Implementation
+## Implementation
 The implementation of `MSWeakTimer` was reviewed and validated by a `libdispatch` (`GCD`) engineer at the WWDC 2013 Core OS Lab.
 
 ## How to Use
