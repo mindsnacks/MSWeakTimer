@@ -36,5 +36,5 @@ Check out the code in the [sample app](https://github.com/mindsnacks/MSWeakTimer
 ### Compatibility
 
 - Supports ARC. If you want to use it in a project without ARC, mark ```MSWeakTimer.m``` with the linker flag ```-fobjc-arc```.
-- Should work with iOS4+ and Mac OSX 10.6+.
+- Supports iOS iOS5+ and Mac OSX 10.7+.
 
