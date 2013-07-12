@@ -8,21 +8,27 @@
 
 #import "MSWeakTimer.h"
 
+#import <libkern/OSAtomic.h>
+
 #if !__has_feature(objc_arc)
     #error MSWeakTimer is ARC only. Either turn on ARC for the project or use -fobjc-arc flag
 #endif
 
 #if OS_OBJECT_USE_OBJC
     #define ms_gcd_property_qualifier strong
-    #define ms_retain_gcd_object(object)
     #define ms_release_gcd_object(object)
 #else
     #define ms_gcd_property_qualifier assign
-    #define ms_retain_gcd_object(object) dispatch_retain(object)
     #define ms_release_gcd_object(object) dispatch_release(object)
 #endif
 
 @interface MSWeakTimer ()
+{
+    struct
+    {
+        uint32_t timerIsInvalidated;
+    } _timerFlags;
+}
 
 @property (nonatomic, assign) NSTimeInterval timeInterval;
 @property (nonatomic, weak) id target;
@@ -30,11 +36,9 @@
 @property (nonatomic, strong) id userInfo;
 @property (nonatomic, assign) BOOL repeats;
 
-@property (nonatomic, ms_gcd_property_qualifier) dispatch_queue_t dispatchQueue;
+@property (nonatomic, ms_gcd_property_qualifier) dispatch_queue_t privateSerialQueue;
 
 @property (nonatomic, ms_gcd_property_qualifier) dispatch_source_t timer;
-
-- (void)timerFired;
 
 @end
 
@@ -59,9 +63,9 @@
     weakTimer.userInfo = userInfo;
     weakTimer.repeats = repeats;
 
-    ms_retain_gcd_object(dispatchQueue);
-
-    weakTimer.dispatchQueue = dispatchQueue;
+    NSString *privateQueueName = [NSString stringWithFormat:@"com.mindsnacks.msweaktimer.%p", weakTimer];
+    weakTimer.privateSerialQueue = dispatch_queue_create([privateQueueName cStringUsingEncoding:NSASCIIStringEncoding], DISPATCH_QUEUE_SERIAL);
+    dispatch_set_target_queue(weakTimer.privateSerialQueue, dispatchQueue);
 
     [weakTimer schedule];
 
@@ -72,7 +76,7 @@
 {
     [self invalidate];
 
-    ms_release_gcd_object(_dispatchQueue);
+    ms_release_gcd_object(_privateSerialQueue);
 }
 
 - (NSString *)description
@@ -94,8 +98,8 @@
 {
     self.timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER,
                                         0,
-                                        0,
-                                        self.dispatchQueue);
+                                        0, // TODO: maybe offer to set the leeway via the API?
+                                        self.privateSerialQueue);
 
     int64_t intervalInNanoseconds = (int64_t)(self.timeInterval * NSEC_PER_SEC);
     dispatch_source_set_timer(self.timer,
@@ -114,38 +118,40 @@
 
 - (void)fire
 {
-    dispatch_async(self.dispatchQueue, ^{
-        [self timerFired];
-    });
+    [self timerFired];
 }
 
 - (void)invalidate
 {
-    @synchronized(self)
+    // We check with an atomic operation if it has already been invalidated. Ideally we would synchronize this on the private queue,
+    // but since we can't know the context from which this method will be called, dispatch_sync might cause a deadlock.
+    if (!OSAtomicTestAndSetBarrier(7, &_timerFlags.timerIsInvalidated))
     {
-        if (self.timer)
-        {
-            dispatch_source_cancel(self.timer);
-            ms_release_gcd_object(self.timer);
-            self.timer = nil;
-        }
+        dispatch_source_t timer = self.timer;
+        dispatch_async(self.privateSerialQueue, ^{
+            dispatch_source_cancel(timer);
+            ms_release_gcd_object(timer);
+        });
     }
 }
 
 - (void)timerFired
 {
-    @synchronized(self)
+    // Checking attomatically if the timer has already been invalidated.
+    if (OSAtomicAnd32OrigBarrier(1, &_timerFlags.timerIsInvalidated))
     {
-        // We're not worried about this warning because the selector we're calling doesn't return a +1 object.
-        #pragma clang diagnostic push
-        #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-        [self.target performSelector:self.selector withObject:self];
-        #pragma clang diagnostic pop
+        return;
+    }
 
-        if (!self.repeats)
-        {
-            [self invalidate];
-        }
+    // We're not worried about this warning because the selector we're calling doesn't return a +1 object.
+    #pragma clang diagnostic push
+    #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+        [self.target performSelector:self.selector withObject:self];
+    #pragma clang diagnostic pop
+
+    if (!self.repeats)
+    {
+        [self invalidate];
     }
 }
 

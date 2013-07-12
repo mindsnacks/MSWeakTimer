@@ -14,6 +14,8 @@
     #error this class is only ready to work on iOS6
 #endif
 
+static const char *MSSampleViewControllerTimerQueueContext = "MSSampleViewControllerTimerQueueContext";
+
 @interface MSSampleViewController ()
 
 @property (weak, nonatomic) IBOutlet UILabel *label;
@@ -41,6 +43,7 @@
                                                                    repeats:YES
                                                              dispatchQueue:self.privateQueue];
         
+        dispatch_queue_set_specific(self.privateQueue, (__bridge const void *)(self), (void *)MSSampleViewControllerTimerQueueContext, NULL);
     }
 
     return self;
@@ -98,11 +101,8 @@
 {
     NSAssert(![NSThread isMainThread], @"This shouldn't be called from the main thread");
 
-    #pragma clang diagnostic push
-    #pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    // dispatch_get_current_queue() is deprecated, but we don't care for this.
-        NSAssert(dispatch_get_current_queue() == self.privateQueue, @"This should be called from the private queue");
-    #pragma clang diagnostic pop
+    const BOOL calledInPrivateQueue = dispatch_queue_get_specific(self.privateQueue, (__bridge const void *)(self)) == MSSampleViewControllerTimerQueueContext;
+    NSAssert(calledInPrivateQueue, @"This should be called on the provided queue");
 }
 
 @end
