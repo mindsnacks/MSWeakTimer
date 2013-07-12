@@ -3,7 +3,7 @@ MSWeakTimer
 
 ### Description
 
-Thread-safe `NSTimer` alternative that doesn't retain the target and supports being used with `GCD` queues.
+Thread-safe `NSTimer` drop-in alternative that doesn't retain the target and supports being used with `GCD` queues.
 
 ### Motivation
 The first motivation for this class was to have a type of timer that objects could *own* and retain, without this creating a retain cycle ( *like `NSTimer` causes, since it retains its target* ). This way you can just release the timer in the `-dealloc` method of the object class that owns the timer.
@@ -38,3 +38,5 @@ Check out the code in the [sample app](https://github.com/mindsnacks/MSWeakTimer
 - Supports ARC. If you want to use it in a project without ARC, mark ```MSWeakTimer.m``` with the linker flag ```-fobjc-arc```.
 - Supports iOS iOS5+ and Mac OSX 10.7+.
 
+## License
+`MSWeakTimer` is available under the MIT license. See the LICENSE file for more info.
