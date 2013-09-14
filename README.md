@@ -36,9 +36,23 @@ Create an `MSWeakTimer` object with this class method:
 
 Check out the code in the [sample app](https://github.com/mindsnacks/MSWeakTimer/blob/master/MSWeakTimer-SampleProject/MSWeakTimer-SampleProject/Classes/MSSampleViewController.m).
 
+## Installation
+
+- Using [Cocoapods](http://cocoapods.org/):
+
+Just add this line to your `Podfile`:
+
+```
+pod 'MSWeakTimer', '~> 1.0.1'
+```
+
+- Manually:
+
+Simply add the files `MSWeakTimer.h` and `MSWeakTimer.m` to your project.
+
 ## Compatibility
 
-- Supports ARC. If you want to use it in a project without ARC, mark ```MSWeakTimer.m``` with the linker flag ```-fobjc-arc```.
+- Requires ARC. If you want to use it in a project without ARC, mark ```MSWeakTimer.m``` with the linker flag ```-fobjc-arc```.
 - Supports iOS iOS5+ and Mac OSX 10.7+.
 
 ## License
