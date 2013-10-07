@@ -8,7 +8,7 @@
 
 #import "MSSampleViewController.h"
 
-#import <MSWeakTimer/MSWeakTimer.h>
+#import "MSWeakTimer.h"
 
 #if __IPHONE_OS_VERSION_MIN_REQUIRED < 60000
     #error this class is only ready to work on iOS6

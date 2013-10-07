@@ -15,7 +15,7 @@
 @interface MSWeakTimer : NSObject
 
 /**
- * Creates an `MSWeakTimer` object and schedules it to start ticking inmediately.
+ * Creates a timer with the specified parameters and waits for a call to `-schedule` to start ticking.
  * @note It's safe to retain the returned timer by the object that is also the target.
  * or the provided `dispatchQueue`.
  * @param timeInterval how frequently `selector` will be invoked on `target`. If the timer doens't repeat, it will only be invoked once, approximately `timeInterval` seconds from the time you call this method.
@@ -23,12 +23,28 @@
  * @param dispatchQueue the queue where the delegate method will be dispatched. It can be either a serial or concurrent queue.
  * @see `invalidate`.
  */
-+ (MSWeakTimer *)scheduledTimerWithTimeInterval:(NSTimeInterval)timeInterval
-                                         target:(id)target
-                                       selector:(SEL)selector
-                                       userInfo:(id)userInfo
-                                        repeats:(BOOL)repeats
-                                  dispatchQueue:(dispatch_queue_t)dispatchQueue;
+- (id)initWithTimeInterval:(NSTimeInterval)timeInterval
+                    target:(id)target
+                  selector:(SEL)selector
+                  userInfo:(id)userInfo
+                   repeats:(BOOL)repeats
+             dispatchQueue:(dispatch_queue_t)dispatchQueue;
+
+/**
+ * Creates an `MSWeakTimer` object and schedules it to start ticking inmediately.
+ */
++ (instancetype)scheduledTimerWithTimeInterval:(NSTimeInterval)timeInterval
+                                        target:(id)target
+                                      selector:(SEL)selector
+                                      userInfo:(id)userInfo
+                                       repeats:(BOOL)repeats
+                                 dispatchQueue:(dispatch_queue_t)dispatchQueue;
+
+/**
+ * Starts the timer if it hadn't been schedule yet.
+ * @warning calling this method on an already scheduled timer results in undefined behavior.
+ */
+- (void)schedule;
 
 /**
  * Causes the timer to be fired synchronously manually on the queue from which you call this method.

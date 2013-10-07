@@ -44,32 +44,65 @@
 
 @implementation MSWeakTimer
 
-+ (MSWeakTimer *)scheduledTimerWithTimeInterval:(NSTimeInterval)timeInterval
-                                         target:(id)target
-                                       selector:(SEL)selector
-                                       userInfo:(id)userInfo
-                                        repeats:(BOOL)repeats
-                                  dispatchQueue:(dispatch_queue_t)dispatchQueue
+- (id)initWithTimeInterval:(NSTimeInterval)timeInterval
+                    target:(id)target
+                  selector:(SEL)selector
+                  userInfo:(id)userInfo
+                   repeats:(BOOL)repeats
+             dispatchQueue:(dispatch_queue_t)dispatchQueue
 {
     NSParameterAssert(target);
     NSParameterAssert(selector);
     NSParameterAssert(dispatchQueue);
 
-    MSWeakTimer *weakTimer = [[self alloc] init];
+    if ((self = [super init]))
+    {
+        self.timeInterval = timeInterval;
+        self.target = target;
+        self.selector = selector;
+        self.userInfo = userInfo;
+        self.repeats = repeats;
 
-    weakTimer.timeInterval = timeInterval;
-    weakTimer.target = target;
-    weakTimer.selector = selector;
-    weakTimer.userInfo = userInfo;
-    weakTimer.repeats = repeats;
+        NSString *privateQueueName = [NSString stringWithFormat:@"com.mindsnacks.msweaktimer.%p", self];
+        self.privateSerialQueue = dispatch_queue_create([privateQueueName cStringUsingEncoding:NSASCIIStringEncoding], DISPATCH_QUEUE_SERIAL);
+        dispatch_set_target_queue(self.privateSerialQueue, dispatchQueue);
 
-    NSString *privateQueueName = [NSString stringWithFormat:@"com.mindsnacks.msweaktimer.%p", weakTimer];
-    weakTimer.privateSerialQueue = dispatch_queue_create([privateQueueName cStringUsingEncoding:NSASCIIStringEncoding], DISPATCH_QUEUE_SERIAL);
-    dispatch_set_target_queue(weakTimer.privateSerialQueue, dispatchQueue);
+        self.timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER,
+                                            0,
+                                            0,
+                                            self.privateSerialQueue);
+    }
 
-    [weakTimer schedule];
+    return self;
+}
 
-    return weakTimer;
+- (id)init
+{
+    return [self initWithTimeInterval:0
+                               target:nil
+                             selector:NULL
+                             userInfo:nil
+                              repeats:NO
+                        dispatchQueue:nil];
+}
+
++ (instancetype)scheduledTimerWithTimeInterval:(NSTimeInterval)timeInterval
+                                        target:(id)target
+                                      selector:(SEL)selector
+                                      userInfo:(id)userInfo
+                                       repeats:(BOOL)repeats
+                                 dispatchQueue:(dispatch_queue_t)dispatchQueue
+{
+    MSWeakTimer *timer = [[self alloc] initWithTimeInterval:timeInterval
+                                                     target:target
+                                                   selector:selector
+                                                   userInfo:userInfo
+                                                    repeats:repeats
+                                              dispatchQueue:dispatchQueue];
+
+    [timer schedule];
+
+    return timer;
 }
 
 - (void)dealloc
