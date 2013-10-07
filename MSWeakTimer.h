@@ -47,6 +47,13 @@
 - (void)schedule;
 
 /**
+ * Sets the amount of time after the scheduled fire date that the timer may fire to the given interval.
+ * @discussion Setting a tolerance for a timer allows it to fire later than the scheduled fire date, improving the ability of the system to optimize for increased power savings and responsiveness. The timer may fire at any time between its scheduled fire date and the scheduled fire date plus the tolerance. The timer will not fire before the scheduled fire date. For repeating timers, the next fire date is calculated from the original fire date regardless of tolerance applied at individual fire times, to avoid drift. The default value is zero, which means no additional tolerance is applied. The system reserves the right to apply a small amount of tolerance to certain timers regardless of the value of this property.
+ As the user of the timer, you will have the best idea of what an appropriate tolerance for a timer may be. A general rule of thumb, though, is to set the tolerance to at least 10% of the interval, for a repeating timer. Even a small amount of tolerance will have a significant positive impact on the power usage of your application. The system may put a maximum value of the tolerance.
+ */
+@property (atomic, assign) NSTimeInterval tolerance;
+
+/**
  * Causes the timer to be fired synchronously manually on the queue from which you call this method.
  * You can use this method to fire a repeating timer without interrupting its regular firing schedule.
  * If the timer is non-repeating, it is automatically invalidated after firing, even if its scheduled fire date has not arrived.

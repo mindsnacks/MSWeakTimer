@@ -44,6 +44,8 @@
 
 @implementation MSWeakTimer
 
+@synthesize tolerance = _tolerance;
+
 - (id)initWithTimeInterval:(NSTimeInterval)timeInterval
                     target:(id)target
                   selector:(SEL)selector
@@ -127,18 +129,42 @@
 
 #pragma mark -
 
-- (void)schedule
+- (void)setTolerance:(NSTimeInterval)tolerance
 {
-    self.timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER,
-                                        0,
-                                        0, // TODO: maybe offer to set the leeway via the API?
-                                        self.privateSerialQueue);
+    @synchronized(self)
+    {
+        if (tolerance != _tolerance)
+        {
+            _tolerance = tolerance;
 
+            [self resetTimerProperties];
+        }
+    }
+}
+
+- (NSTimeInterval)tolerance
+{
+    @synchronized(self)
+    {
+        return _tolerance;
+    }
+}
+
+- (void)resetTimerProperties
+{
     int64_t intervalInNanoseconds = (int64_t)(self.timeInterval * NSEC_PER_SEC);
+    int64_t toleranceInNanoseconds = (int64_t)(self.tolerance * NSEC_PER_SEC);
+
     dispatch_source_set_timer(self.timer,
                               dispatch_time(DISPATCH_TIME_NOW, intervalInNanoseconds),
                               (uint64_t)intervalInNanoseconds,
-                              0);
+                              toleranceInNanoseconds
+                              );
+}
+
+- (void)schedule
+{
+    [self resetTimerProperties];
 
     __weak typeof(self) weakSelf = self;
 
