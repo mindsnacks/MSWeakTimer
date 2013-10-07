@@ -43,7 +43,7 @@ Check out the code in the [sample app](https://github.com/mindsnacks/MSWeakTimer
 Just add this line to your `Podfile`:
 
 ```
-pod 'MSWeakTimer', '~> 1.0.1'
+pod 'MSWeakTimer', '~> 1.1.0'
 ```
 
 - Manually:
