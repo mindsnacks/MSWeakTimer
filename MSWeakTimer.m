@@ -166,7 +166,7 @@
 {
     [self resetTimerProperties];
 
-    __weak typeof(self) weakSelf = self;
+    __weak MSWeakTimer *weakSelf = self;
 
     dispatch_source_set_event_handler(self.timer, ^{
         [weakSelf timerFired];
