@@ -22,7 +22,7 @@ typedef void(^MSWeakTimerBlock)(MSWeakTimer *timer);
  * Creates a timer with the specified parameters and waits for a call to `-schedule` to start ticking.
  * @note It's safe to retain the returned timer by the object that is also the target.
  * or the provided `dispatchQueue`.
- * @param timeInterval how frequently `selector` will be invoked on `target`. If the timer doens't repeat, it will only be invoked once, approximately `timeInterval` seconds from the time you call this method.
+ * @param timeInterval how frequently `selector` will be invoked on `target`. If the timer doesn't repeat, it will only be invoked once, approximately `timeInterval` seconds from the time you call this method.
  * @param repeats if `YES`, `selector` will be invoked on `target` until the `MSWeakTimer` object is deallocated or until you call `invalidate`. If `NO`, it will only be invoked once.
  * @param dispatchQueue the queue where the delegate method will be dispatched. It can be either a serial or concurrent queue.
  * @see `invalidate`.
@@ -36,7 +36,7 @@ typedef void(^MSWeakTimerBlock)(MSWeakTimer *timer);
 
 /**
  * Creates a timer that calls the specified block on the specified dispatch queue when fired, and waits for a call to `-schedule` to start ticking.
- * @param timeInterval how frequently `block` will be called. If the timer doens't repeat, it will only be called once, approximately `timeInterval` seconds from the time you call this method.
+ * @param timeInterval how frequently `block` will be called. If the timer doesn't repeat, it will only be called once, approximately `timeInterval` seconds from the time you call this method.
  * @param repeats if `YES`, `block` will be called until the `MSWeakTimer` object is deallocated or until you call `invalidate`. If `NO`, it will only be called once.
  * @param dispatchQueue the queue where the `block` will be called. It can be either a serial or concurrent queue.
  * @see `invalidate`.
@@ -48,7 +48,7 @@ typedef void(^MSWeakTimerBlock)(MSWeakTimer *timer);
              dispatchQueue:(dispatch_queue_t)dispatchQueue;
 
 /**
- * Creates an `MSWeakTimer` object and schedules it to start ticking inmediately.
+ * Creates an `MSWeakTimer` object and schedules it to start ticking immediately.
  */
 + (instancetype)scheduledTimerWithTimeInterval:(NSTimeInterval)timeInterval
                                         target:(id)target
@@ -58,7 +58,7 @@ typedef void(^MSWeakTimerBlock)(MSWeakTimer *timer);
                                  dispatchQueue:(dispatch_queue_t)dispatchQueue;
 
 /**
- * Creates an `MSWeakTimer` object with a block and schedules it to start ticking inmediately.
+ * Creates an `MSWeakTimer` object with a block and schedules it to start ticking immediately.
  */
 + (instancetype)scheduledTimerWithTimeInterval:(NSTimeInterval)timeInterval
                                          block:(MSWeakTimerBlock)block

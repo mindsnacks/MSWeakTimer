@@ -242,7 +242,7 @@
 
 - (void)timerFired
 {
-    // Checking attomatically if the timer has already been invalidated.
+    // Checking atomically if the timer has already been invalidated.
     if (OSAtomicAnd32OrigBarrier(1, &_timerFlags.timerIsInvalidated))
     {
         return;
