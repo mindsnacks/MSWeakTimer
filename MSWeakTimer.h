@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+@class MSWeakTimer;
+
+typedef void(^MSWeakTimerBlock)(MSWeakTimer *timer);
+
 /**
  `MSWeakTimer` behaves similar to an `NSTimer` but doesn't retain the target.
  This timer is implemented using GCD, so you can schedule and unschedule it on arbitrary queues (unlike regular NSTimers!)
@@ -31,11 +35,33 @@
              dispatchQueue:(dispatch_queue_t)dispatchQueue;
 
 /**
+ * Creates a timer that calls the specified block on the specified dispatch queue when fired, and waits for a call to `-schedule` to start ticking.
+ * @param timeInterval how frequently `block` will be called. If the timer doens't repeat, it will only be called once, approximately `timeInterval` seconds from the time you call this method.
+ * @param repeats if `YES`, `block` will be called until the `MSWeakTimer` object is deallocated or until you call `invalidate`. If `NO`, it will only be called once.
+ * @param dispatchQueue the queue where the `block` will be called. It can be either a serial or concurrent queue.
+ * @see `invalidate`.
+ */
+- (id)initWithTimeInterval:(NSTimeInterval)timeInterval
+                     block:(MSWeakTimerBlock)block
+                  userInfo:(id)userInfo
+                   repeats:(BOOL)repeats
+             dispatchQueue:(dispatch_queue_t)dispatchQueue;
+
+/**
  * Creates an `MSWeakTimer` object and schedules it to start ticking inmediately.
  */
 + (instancetype)scheduledTimerWithTimeInterval:(NSTimeInterval)timeInterval
                                         target:(id)target
                                       selector:(SEL)selector
+                                      userInfo:(id)userInfo
+                                       repeats:(BOOL)repeats
+                                 dispatchQueue:(dispatch_queue_t)dispatchQueue;
+
+/**
+ * Creates an `MSWeakTimer` object with a block and schedules it to start ticking inmediately.
+ */
++ (instancetype)scheduledTimerWithTimeInterval:(NSTimeInterval)timeInterval
+                                         block:(MSWeakTimerBlock)block
                                       userInfo:(id)userInfo
                                        repeats:(BOOL)repeats
                                  dispatchQueue:(dispatch_queue_t)dispatchQueue;
@@ -63,7 +89,7 @@
 /**
  * You can call this method on repeatable timers in order to stop it from running and trying
  * to call the delegate method.
- * @note `MSWeakTimer` won't invoke the `selector` on `target` again after calling this method.
+ * @note `MSWeakTimer` won't invoke the `selector` on `target` or `block` again after calling this method.
  * You can call this method from any queue, it doesn't have to be the queue from where you scheduled it.
  * Since it doesn't retain the delegate, unlike a regular `NSTimer`, your `dealloc` method will actually be called
  * and it's easier to place the `invalidate` call there, instead of figuring out a safe place to do it.

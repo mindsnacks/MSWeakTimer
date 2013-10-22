@@ -33,6 +33,7 @@
 @property (nonatomic, assign) NSTimeInterval timeInterval;
 @property (nonatomic, weak) id target;
 @property (nonatomic, assign) SEL selector;
+@property (nonatomic, copy) MSWeakTimerBlock block;
 @property (nonatomic, strong) id userInfo;
 @property (nonatomic, assign) BOOL repeats;
 
@@ -64,19 +65,47 @@
         self.selector = selector;
         self.userInfo = userInfo;
         self.repeats = repeats;
-
-        NSString *privateQueueName = [NSString stringWithFormat:@"com.mindsnacks.msweaktimer.%p", self];
-        self.privateSerialQueue = dispatch_queue_create([privateQueueName cStringUsingEncoding:NSASCIIStringEncoding], DISPATCH_QUEUE_SERIAL);
-        dispatch_set_target_queue(self.privateSerialQueue, dispatchQueue);
-
-        self.timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER,
-                                            0,
-                                            0,
-                                            self.privateSerialQueue);
+        
+        [self preparePrivateQueueWithTargetQueue:dispatchQueue];
     }
 
     return self;
 }
+
+- (id)initWithTimeInterval:(NSTimeInterval)timeInterval
+                     block:(MSWeakTimerBlock)block
+                  userInfo:(id)userInfo
+                   repeats:(BOOL)repeats
+             dispatchQueue:(dispatch_queue_t)dispatchQueue
+{
+    NSParameterAssert(block);
+    NSParameterAssert(dispatchQueue);
+    
+    if ((self = [super init]))
+    {
+        self.timeInterval = timeInterval;
+        self.block = block;
+        self.userInfo = userInfo;
+        self.repeats = repeats;
+        
+        [self preparePrivateQueueWithTargetQueue:dispatchQueue];
+    }
+    
+    return self;
+}
+
+- (void)preparePrivateQueueWithTargetQueue:(dispatch_queue_t)targetQueue
+{
+    NSString *privateQueueName = [NSString stringWithFormat:@"com.mindsnacks.msweaktimer.%p", self];
+    self.privateSerialQueue = dispatch_queue_create([privateQueueName cStringUsingEncoding:NSASCIIStringEncoding], DISPATCH_QUEUE_SERIAL);
+    dispatch_set_target_queue(self.privateSerialQueue, targetQueue);
+    
+    self.timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER,
+                                        0,
+                                        0,
+                                        self.privateSerialQueue);
+}
+
 
 - (id)init
 {
@@ -104,6 +133,23 @@
 
     [timer schedule];
 
+    return timer;
+}
+
++ (instancetype)scheduledTimerWithTimeInterval:(NSTimeInterval)timeInterval
+                                         block:(MSWeakTimerBlock)block
+                                      userInfo:(id)userInfo
+                                       repeats:(BOOL)repeats
+                                 dispatchQueue:(dispatch_queue_t)dispatchQueue
+{
+    MSWeakTimer *timer = [[self alloc] initWithTimeInterval:timeInterval
+                                                      block:block
+                                                   userInfo:userInfo
+                                                    repeats:repeats
+                                              dispatchQueue:dispatchQueue];
+    
+    [timer schedule];
+    
     return timer;
 }
 
@@ -202,11 +248,15 @@
         return;
     }
 
-    // We're not worried about this warning because the selector we're calling doesn't return a +1 object.
-    #pragma clang diagnostic push
-    #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-        [self.target performSelector:self.selector withObject:self];
-    #pragma clang diagnostic pop
+    if (self.block != NULL) {
+        self.block(self);
+    } else {
+        // We're not worried about this warning because the selector we're calling doesn't return a +1 object.
+        #pragma clang diagnostic push
+        #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+            [self.target performSelector:self.selector withObject:self];
+        #pragma clang diagnostic pop
+    }
 
     if (!self.repeats)
     {
