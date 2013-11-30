@@ -169,7 +169,9 @@
     __weak MSWeakTimer *weakSelf = self;
 
     dispatch_source_set_event_handler(self.timer, ^{
-        [weakSelf timerFired];
+        MSWeakTimer *strongSelf = weakSelf;
+        if (strongSelf)
+            [strongSelf timerFired];
     });
 
     dispatch_resume(self.timer);
@@ -203,9 +205,11 @@
     }
 
     // We're not worried about this warning because the selector we're calling doesn't return a +1 object.
+    id strongTarget = self.target;
     #pragma clang diagnostic push
     #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-        [self.target performSelector:self.selector withObject:self];
+    if (strongTarget)
+        [strongTarget performSelector:self.selector withObject:self];
     #pragma clang diagnostic pop
 
     if (!self.repeats)
