@@ -54,6 +54,11 @@
 @property (atomic, assign) NSTimeInterval tolerance;
 
 /**
+ *  Adjust the fire date of the timer, useful for repeated timers that need to be offset to a specific time. Equivalent to calling -schedule at the given moment.
+ */
+@property (atomic, strong) NSDate *fireDate;
+
+/**
  * Causes the timer to be fired synchronously manually on the queue from which you call this method.
  * You can use this method to fire a repeating timer without interrupting its regular firing schedule.
  * If the timer is non-repeating, it is automatically invalidated after firing, even if its scheduled fire date has not arrived.

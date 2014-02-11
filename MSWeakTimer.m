@@ -45,6 +45,7 @@
 @implementation MSWeakTimer
 
 @synthesize tolerance = _tolerance;
+@synthesize fireDate = _fireDate;
 
 - (id)initWithTimeInterval:(NSTimeInterval)timeInterval
                     target:(id)target
@@ -150,13 +151,50 @@
     }
 }
 
+- (void)setFireDate:(NSDate *)date
+{
+    @synchronized(self)
+    {
+        if (date != _fireDate)
+        {
+            _fireDate = date;
+            
+            [self resetTimerProperties];
+        }
+    }
+}
+
+- (NSDate *)fireDate
+{
+    @synchronized(self)
+    {
+        return _fireDate;
+    }
+}
+
 - (void)resetTimerProperties
 {
     int64_t intervalInNanoseconds = (int64_t)(self.timeInterval * NSEC_PER_SEC);
     int64_t toleranceInNanoseconds = (int64_t)(self.tolerance * NSEC_PER_SEC);
-
+    dispatch_time_t start;
+    NSTimeInterval fireIntervalInSeconds = [self.fireDate timeIntervalSince1970];
+    
+    if (fireIntervalInSeconds == 0) {
+        start = dispatch_time(DISPATCH_TIME_NOW, intervalInNanoseconds);
+    } else {
+        double seconds = 0;
+        double fraction = modf(fireIntervalInSeconds, &seconds);
+        
+        struct timespec walltime = {
+            .tv_sec = (time_t)fmin(fmax(seconds, LONG_MIN), LONG_MAX),
+            .tv_nsec = (long)fmin(fmax(fraction * NSEC_PER_SEC, LONG_MIN), LONG_MAX)
+        };
+        
+        start = dispatch_walltime(&walltime, 0);
+    }
+    
     dispatch_source_set_timer(self.timer,
-                              dispatch_time(DISPATCH_TIME_NOW, intervalInNanoseconds),
+                              start,
                               (uint64_t)intervalInNanoseconds,
                               toleranceInNanoseconds
                               );
