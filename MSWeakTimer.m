@@ -205,7 +205,7 @@
     // We're not worried about this warning because the selector we're calling doesn't return a +1 object.
     #pragma clang diagnostic push
     #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-        [self.target performSelector:self.selector withObject:self];
+        [self.target performSelector:self.selector withObject:self.userInfo];
     #pragma clang diagnostic pop
 
     if (!self.repeats)
