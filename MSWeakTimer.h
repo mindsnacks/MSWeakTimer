@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+typedef void (^MSWeakTimerBlock)();
+
+
 /**
  `MSWeakTimer` behaves similar to an `NSTimer` but doesn't retain the target.
  This timer is implemented using GCD, so you can schedule and unschedule it on arbitrary queues (unlike regular NSTimers!)
@@ -40,6 +43,14 @@
                                        repeats:(BOOL)repeats
                                  dispatchQueue:(dispatch_queue_t)dispatchQueue;
 
+
++ (instancetype)scheduledTimerWithTimeInterval:(NSTimeInterval)timeInterval
+                                         block:(MSWeakTimerBlock)block
+                                      userInfo:(id)userInfo
+                                       repeats:(BOOL)repeats
+                                 dispatchQueue:(dispatch_queue_t)dispatchQueue;
+                                 
+                                 
 /**
  * Starts the timer if it hadn't been schedule yet.
  * @warning calling this method on an already scheduled timer results in undefined behavior.
