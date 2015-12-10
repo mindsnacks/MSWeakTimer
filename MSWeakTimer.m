@@ -78,6 +78,36 @@
     return self;
 }
 
+
+- (id)initWithTimeInterval:(NSTimeInterval)timeInterval
+                     block:(MSWeakTimerBlock)bloco
+                  userInfo:(id)userInfo
+                   repeats:(BOOL)repeats
+             dispatchQueue:(dispatch_queue_t)dispatchQueue
+{
+  
+  if ((self = [super init]))
+  {
+    self.timeInterval = timeInterval;
+    self.blocoTimer = bloco;
+    self.userInfo = userInfo;
+    self.repeats = repeats;
+    
+    NSString *privateQueueName = [NSString stringWithFormat:@"com.mindsnacks.msweaktimer.%p", self];
+    self.privateSerialQueue = dispatch_queue_create([privateQueueName cStringUsingEncoding:NSASCIIStringEncoding], DISPATCH_QUEUE_SERIAL);
+    dispatch_set_target_queue(self.privateSerialQueue, dispatchQueue);
+    
+    self.timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER,
+                                        0,
+                                        0,
+                                        self.privateSerialQueue);
+  }
+  
+  return self;
+}
+
+
+
 - (id)init
 {
     return [self initWithTimeInterval:0
@@ -106,6 +136,26 @@
 
     return timer;
 }
+
++ (instancetype)scheduledTimerWithTimeInterval:(NSTimeInterval)timeInterval
+                                         block:(MSWeakTimerBlock)block
+                                      userInfo:(id)userInfo
+                                       repeats:(BOOL)repeats
+                                 dispatchQueue:(dispatch_queue_t)dispatchQueue {
+  
+  
+  MSWeakTimer *timer = [[self alloc] initWithTimeInterval:timeInterval
+                                                    block:block
+                                                 userInfo:userInfo
+                                                  repeats:repeats
+                                            dispatchQueue:dispatchQueue];
+  
+  [timer schedule];
+  
+  return timer;
+}
+
+
 
 - (void)dealloc
 {
@@ -205,7 +255,12 @@
     // We're not worried about this warning because the selector we're calling doesn't return a +1 object.
     #pragma clang diagnostic push
     #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-        [self.target performSelector:self.selector withObject:self];
+    if (self.blocoTimer) {
+      self.blocoTimer();
+    } else {
+      [self.target performSelector:self.selector withObject:self];
+    }
+    
     #pragma clang diagnostic pop
 
     if (!self.repeats)
