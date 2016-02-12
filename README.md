@@ -38,7 +38,7 @@ Check out the code in the [sample app](https://github.com/mindsnacks/MSWeakTimer
 
 ## Installation
 
-- Using [Cocoapods](http://cocoapods.org/):
+- Using [CocoaPods](http://cocoapods.org/):
 
 Just add this line to your `Podfile`:
 
