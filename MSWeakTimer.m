@@ -201,16 +201,17 @@
     {
         return;
     }
-
+    
+    MSWeakTimer *strongSelf = self;
     // We're not worried about this warning because the selector we're calling doesn't return a +1 object.
     #pragma clang diagnostic push
     #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
         [self.target performSelector:self.selector withObject:self];
     #pragma clang diagnostic pop
 
-    if (!self.repeats)
+    if (!strongSelf.repeats)
     {
-        [self invalidate];
+        [strongSelf invalidate];
     }
 }
 
