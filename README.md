@@ -34,6 +34,17 @@ Create an `MSWeakTimer` object with this class method:
                                   dispatchQueue:(dispatch_queue_t)dispatchQueue;
 ```
 
+or using a block
+
+```objc
++ (MSWeakTimer *)scheduledTimerWithTimeInterval:(NSTimeInterval)timeInterval
+                                         block:(MSWeakTimerBlock)block
+                                       userInfo:(id)userInfo
+                                        repeats:(BOOL)repeats
+                                  dispatchQueue:(dispatch_queue_t)dispatchQueue;
+```
+
+
 Check out the code in the [sample app](https://github.com/mindsnacks/MSWeakTimer/blob/master/MSWeakTimer-SampleProject/MSWeakTimer-SampleProject/Classes/MSSampleViewController.m).
 
 ## Installation
