@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+FOUNDATION_EXPORT double MSWeakTimerVersionNumber;
+FOUNDATION_EXPORT const unsigned char MSWeakTimerVersionString[];
+
 /**
  `MSWeakTimer` behaves similar to an `NSTimer` but doesn't retain the target.
  This timer is implemented using GCD, so you can schedule and unschedule it on arbitrary queues (unlike regular NSTimers!)
